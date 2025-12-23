@@ -1,13 +1,16 @@
 <?php
 header("Content-Type: application/json");
 require_once '../../db/connection.php';
+require_once '../../auth/auth_middleware.php';
 
-if (!isset($_GET['id'])) {
+if (!isset($_GET['user_id'])) {
     echo json_encode(["error" => "User ID is required"]);
     exit;
 }
 
-$id = $_GET['id'];
+$id = $_GET['user_id'];
+
+
 
 try {
     $stmt = $pdo->prepare("SELECT * FROM user WHERE user_id = ?");
