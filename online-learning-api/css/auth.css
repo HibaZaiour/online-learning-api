@@ -1,0 +1,206 @@
+/* ============================================
+   Authentication Pages Styles - Baby Blue & White Theme
+   ============================================ */
+
+.auth-page {
+    background: linear-gradient(135deg, var(--baby-blue-light) 0%, var(--baby-blue) 50%, var(--white) 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+}
+
+.auth-container {
+    width: 100%;
+    max-width: 450px;
+}
+
+.auth-card {
+    background-color: var(--white);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px var(--shadow-hover);
+    padding: 2.5rem;
+    animation: slideUp 0.5s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.auth-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.auth-header .logo h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, var(--baby-blue), var(--baby-blue-dark));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.auth-header h2 {
+    color: var(--text-dark);
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.auth-header p {
+    color: var(--text-light);
+    font-size: 0.95rem;
+}
+
+/* Form Styles */
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group label {
+    color: var(--text-dark);
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.form-group input {
+    padding: 0.875rem 1rem;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background-color: var(--off-white);
+    color: var(--text-dark);
+    outline: none;
+    font-family: inherit;
+}
+
+.form-group input:focus {
+    border-color: var(--baby-blue);
+    background-color: var(--white);
+    box-shadow: 0 0 0 3px var(--shadow);
+}
+
+.form-group input::placeholder {
+    color: var(--text-light);
+}
+
+.form-options {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: -0.5rem;
+}
+
+.forgot-password {
+    color: var(--baby-blue-dark);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+}
+
+.forgot-password:hover {
+    color: var(--baby-blue);
+    text-decoration: underline;
+}
+
+.auth-btn {
+    padding: 0.875rem 1.5rem;
+    background: linear-gradient(135deg, var(--baby-blue), var(--baby-blue-dark));
+    color: var(--white);
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px var(--shadow);
+    margin-top: 0.5rem;
+    position: relative;
+    z-index: 1;
+    pointer-events: auto;
+    width: 100%;
+    font-family: inherit;
+}
+
+.auth-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px var(--shadow-hover);
+}
+
+.auth-btn:active {
+    transform: translateY(0);
+}
+
+.auth-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.auth-footer {
+    text-align: center;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.auth-footer p {
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+.auth-footer a {
+    color: var(--baby-blue-dark);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.auth-footer a:hover {
+    color: var(--baby-blue);
+    text-decoration: underline;
+}
+
+/* ============================================
+   Responsive Design for Auth Pages
+   ============================================ */
+
+@media (max-width: 480px) {
+    .auth-card {
+        padding: 2rem 1.5rem;
+    }
+
+    .auth-header .logo h1 {
+        font-size: 1.75rem;
+    }
+
+    .auth-header h2 {
+        font-size: 1.25rem;
+    }
+
+    .form-group input {
+        padding: 0.75rem;
+    }
+
+    .auth-btn {
+        padding: 0.75rem 1.25rem;
+    }
+}
+
