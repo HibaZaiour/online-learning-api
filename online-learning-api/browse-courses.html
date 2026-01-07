@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browse Courses - LearnHub</title>
+    <link rel="stylesheet" href="css/main.css">
+    <style>
+        .filters-container {
+            background-color: var(--off-white);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .filter-group label {
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+        .filter-select {
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            background-color: var(--white);
+            color: var(--text-dark);
+            font-size: 1rem;
+            cursor: pointer;
+            min-width: 200px;
+        }
+        .filter-select:focus {
+            outline: none;
+            border-color: var(--baby-blue);
+        }
+        .courses-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .course-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem 1.5rem;
+            background-color: var(--white);
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+        .course-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+        .course-difficulty {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        .difficulty-easy {
+            background-color: #E8F5E9;
+            color: #2E7D32;
+        }
+        .difficulty-medium {
+            background-color: #FFF3E0;
+            color: #E65100;
+        }
+        .difficulty-hard {
+            background-color: #FCE4EC;
+            color: #C2185B;
+        }
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-light);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">
+                <a href="index.html">
+                    <h1>LearnHub</h1>
+                </a>
+            </div>
+            <div class="search-bar">
+                <input type="text" placeholder="Search courses..." class="search-input">
+                <button class="search-btn" aria-label="Search">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                </button>
+            </div>
+            <!-- Auth Buttons (shown when not logged in) -->
+            <div class="auth-buttons" id="authButtons">
+                <a href="login.html" class="btn-login">Log In</a>
+                <a href="signup.html" class="btn-signup">Sign Up</a>
+            </div>
+            <!-- User Menu (shown when logged in) -->
+            <div class="user-menu" id="userMenu" style="display: none;">
+                <div class="user-menu-toggle" id="userMenuToggle">
+                    <div class="user-avatar">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </div>
+                    <span class="username" id="usernameDisplay">User</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </div>
+                <div class="user-menu-dropdown" id="userMenuDropdown">
+                    <a href="#" class="menu-item">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                        Profile
+                    </a>
+                    <a href="#" class="menu-item" id="logoutBtn">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                            <polyline points="16 17 21 12 16 7"></polyline>
+                            <line x1="21" y1="12" x2="9" y2="12"></line>
+                        </svg>
+                        Logout
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <div class="main-wrapper">
+        <!-- Sidebar (for logged-in users) -->
+        <aside class="sidebar" id="sidebar" style="display: none;">
+            <nav class="sidebar-nav">
+                <a href="index.html" class="nav-item">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="14" width="7" height="7"></rect>
+                        <rect x="3" y="14" width="7" height="7"></rect>
+                    </svg>
+                    <span>Dashboard</span>
+                </a>
+                <a href="browse-courses.html" class="nav-item active">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M2 3h6a4 4 0 0 1 4 4v14a4 4 0 0 1-4 4H2z"></path>
+                        <path d="M22 3h-6a4 4 0 0 0-4 4v14a4 4 0 0 0 4 4h6z"></path>
+                    </svg>
+                    <span>Browse Courses</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="content-area">
+                <h2>Browse Courses</h2>
+
+                <!-- Difficulty Filter -->
+                <div class="filters-container">
+                    <div class="filter-group">
+                        <label for="difficultyFilter">Filter by Difficulty:</label>
+                        <select id="difficultyFilter" class="filter-select">
+                            <option value="">All Levels</option>
+                            <option value="Easy">Easy</option>
+                            <option value="Medium">Medium</option>
+                            <option value="Hard">Hard</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Loading State -->
+                <div id="loadingState" class="loading">Loading courses...</div>
+
+                <!-- Courses List -->
+                <ul id="coursesList" class="courses-list">
+                    <!-- Courses will be inserted here -->
+                </ul>
+
+                <!-- Empty State -->
+                <div id="emptyState" style="display: none; text-align: center; padding: 2rem; color: var(--text-light);">
+                    No courses found.
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>Contact Info</h3>
+                <p>Email: support@learnhub.com</p>
+                <p>Phone: +1 (555) 123-4567</p>
+                <p>Address: 123 Learning Street, Education City</p>
+            </div>
+            <div class="footer-section">
+                <h3>Terms & Privacy</h3>
+                <a href="#">Terms of Service</a>
+                <a href="#">Privacy Policy</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 LearnHub. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/browse-courses.js"></script>
+</body>
+</html>
+

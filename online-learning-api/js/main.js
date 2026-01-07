@@ -8,11 +8,14 @@ function checkAuthState() {
     const sidebar = document.getElementById('sidebar');
     const usernameDisplay = document.getElementById('usernameDisplay');
 
+    const browseCoursesBtn = document.getElementById('browseCoursesBtn');
+
     if (token) {
         // User is logged in
         if (authButtons) authButtons.style.display = 'none';
         if (userMenu) userMenu.style.display = 'block';
         if (sidebar) sidebar.style.display = 'block';
+        if (browseCoursesBtn) browseCoursesBtn.style.display = 'block';
 
         // Decode token to get username (simple base64 decode)
         try {
@@ -28,6 +31,7 @@ function checkAuthState() {
         if (authButtons) authButtons.style.display = 'flex';
         if (userMenu) userMenu.style.display = 'none';
         if (sidebar) sidebar.style.display = 'none';
+        if (browseCoursesBtn) browseCoursesBtn.style.display = 'none';
     }
 }
 
